@@ -30,7 +30,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onBack, onShowSignup, onLoginSucc
     }
 
     try {
-      const res = await fetch('/api/users/login', {
+      const res = await fetch(' https://mern-pet-adoption-and-care-project-6.onrender.com ', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
