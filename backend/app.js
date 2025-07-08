@@ -4,20 +4,25 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const app = express();
+
+// ✅ CORS configuration for frontend (Netlify domain)
 app.use(cors({
-  origin: 'https://petlovefrontend.netlify.app', // ✅ Allow your frontend
+  origin: 'https://petlovefrontend.netlify.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
 
-app.use(express.json());
+app.use(express.json()); // to parse JSON body
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('MongoDB connected!'))
-  .catch(err => console.error('MongoDB connection error:', err));
+// ✅ MongoDB Connection
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => console.log('✅ MongoDB connected'))
+.catch((err) => console.error('❌ MongoDB connection error:', err));
 
-// Import routes
+// ✅ Route imports
 const orderRoutes = require('./routes/orders');
 const petRoutes = require('./routes/pets');
 const userRoutes = require('./routes/users');
@@ -25,6 +30,7 @@ const adoptionRoutes = require('./routes/adoptions');
 const appointmentRoutes = require('./routes/appointments');
 const visitRoutes = require('./routes/visits');
 
+// ✅ API Routes
 app.use('/api/orders', orderRoutes);
 app.use('/api/pets', petRoutes);
 app.use('/api/users', userRoutes);
@@ -32,7 +38,13 @@ app.use('/api/adoptions', adoptionRoutes);
 app.use('/api/appointments', appointmentRoutes);
 app.use('/api/visits', visitRoutes);
 
-app.get('/', (req, res) => res.send('PetLove API Running!'));
+// ✅ Root route (health check)
+app.get('/', (req, res) => {
+  res.send('🎉 PetLove API is running!');
+});
 
+// ✅ Start server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});
