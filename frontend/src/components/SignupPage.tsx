@@ -60,10 +60,10 @@ const SignupPage: React.FC<SignupPageProps> = ({ onBack, onShowLogin }) => {
     }
 
     try {
-      const res = await fetch(' https://mern-pet-adoption-and-care-project-6.onrender.com ', {
+      const res = await fetch('https://mern-pet-adoption-and-care-project-6.onrender.com/api/users/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, phone, password }),
+        body: JSON.stringify({ email , password }),
       });
       if (res.ok) {
         setLoading(false);
